@@ -1,0 +1,27 @@
+{
+  "name": "amoCRM-insert",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acrylplatform/amoCRM-insert.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acrylplatform/amoCRM-insert/issues"
+  },
+  "homepage": "https://github.com/acrylplatform/amoCRM-insert#readme",
+  "dependencies": {
+    "amocrm-js": "^1.0.17"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.532.0",
+    "dotenv": "^8.1.0"
+  }
+}
