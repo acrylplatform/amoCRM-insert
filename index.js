@@ -71,7 +71,7 @@ const addCRM = data => {
                             id: 657873,
                             name: "Адрес доставки",
                             values: [{ 
-                                value: data.postCode + ', ' + data.country + ', ' + data.countryState + ', ' + data.sity + ', ' + data.address, 
+                                value: data.postCode + ', ' + data.country + ', ' + data.countryState + ', ' + data.city + ', ' + data.address, 
                             }],
                             is_system: false
                         },
