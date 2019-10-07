@@ -73,7 +73,7 @@ const addCRM = data => {
                             values: [{ 
                                 value: data.postCode + ', ' + data.country + ', ' + data.countryState + ', ' + data.city + ', ' + data.address, 
                             }],
-                            is_system: false
+                            is_system: false 
                         },
                         {
                             id: 664225,
