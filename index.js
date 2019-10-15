@@ -22,11 +22,12 @@ const crm = new AmoCRM({
 
 const addCRM = data => {
     //Search TxAssetID in CRM 
+    console.log(data.TxAssetID, ": CRM search");
     crm.Lead.find({query: data.TxAssetID})
     .then((res) => {
         
-        if ( res.length == 0 ){
-            console.log(data.TxAssetID+' = ' +res.length )
+        if ( res.length === 0 ){
+            console.log(data.TxAssetID, ": Add to the CRM")
             //add contact
             crm.Contact.insert([{
                 name: data.customName,
@@ -105,21 +106,21 @@ const addCRM = data => {
             })
             .catch(error => console.error('Error with add contact: ', error));
         }else{
-            console.log(res.length );
+            console.log(data.TxAssetID, ': is in the CRM');
         }
     })
 }
 
 exports.handler = (event, context, callback) => {
-     crm.connect().then(() => {
-        console.log( `Sign in portal` );
+    // crm.connect().then(() => {
+    // console.log( `Sign in portal` );
 
-         getDataDynamoDB.then(result => {   
+        getDataDynamoDB.then(result => {   
             result.map(data => addCRM(data));
         });
 
-    })
-    .catch( error => {
-        console.log( 'Error login: ', error );
-    });  
+    // })
+    // .catch( error => {
+    //     console.log( 'Error login: ', error );
+    // });  
 }

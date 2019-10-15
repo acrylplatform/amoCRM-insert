@@ -15,7 +15,7 @@ deploy:
     handler_name: "handler"
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
-    memory_size: "2048"
-    timeout: "20"
+    memory_size: "3008"
+    timeout: "60"
     on:
       branch: master
