@@ -24,9 +24,9 @@ const addCRM = async (data) => {
     //Search TxAssetID in CRM 
     await console.log(data.TxAssetID, ": CRM search");
 
-    let queryRes1 = await crm.Lead.find({query: data.TxAssetID});
-    let queryRes2 = await crm.Lead.find({query: data.TxAssetID});
-    let queryRes3 = await crm.Lead.find({query: data.TxAssetID});
+    let queryRes1 = await crm.Lead.find({query: data.TxAssetID}) ? true : false;
+    let queryRes2 = await crm.Lead.find({query: data.TxAssetID}) ? true : false;
+    let queryRes3 = await crm.Lead.find({query: data.TxAssetID}) ? true : false;
     
     if ( queryRes1.length == 0 && queryRes2.length == 0 && queryRes3.length == 0){
         await console.log(data.TxAssetID, ": Add to the CRM");
