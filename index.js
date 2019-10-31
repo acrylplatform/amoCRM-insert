@@ -111,7 +111,7 @@ const addCRM = async (data) => {
     .catch(error => console.error('Error with add contact: ', error));
 }
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event, context, callback) => {
     let DataArrayDynamoDB= new Array;
     let DataArrayCRM= new Array;
 
