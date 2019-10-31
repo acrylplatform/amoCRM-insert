@@ -31,7 +31,7 @@ var diff = function (arr1, arr2) {
 };
 
 const addCRM = async (data) => {
-    await console.log(data.TxAssetID, ": Add to the CRM");
+    // await console.log(data.TxAssetID, ": Add to the CRM");
     //add contact
     await crm.Contact.insert([{
         name: data.customName,
@@ -118,12 +118,12 @@ exports.handler = async (event, context, callback) => {
     //get to DB    
     const DataDynamoDB = await getDataDynamoDB;
     await DataDynamoDB.map(data => { DataArrayDynamoDB.push(data.TxAssetID) });
-    await console.log("DataArrayDynamoDB",DataArrayDynamoDB);
+    // await console.log("DataArrayDynamoDB",DataArrayDynamoDB);
   
     //get to CRM
     let lead_result = await crm.Lead.find({"query":"buy_miner"});
     await lead_result.map(lead => { DataArrayCRM.push(lead.attributes.custom_fields[1].values[0].value) });
-    await console.log("DataArrayCRM:", DataArrayCRM);
+    // await console.log("DataArrayCRM:", DataArrayCRM);
 
     if(DataArrayCRM.length == 0){
         //Make strict zero length, becouse in CRM have leads!
@@ -131,13 +131,13 @@ exports.handler = async (event, context, callback) => {
             //get to CRM
             let lead_result = await crm.Lead.find({"query":"buy_miner"}); 
             await lead_result.map(lead => { DataArrayCRM.push(lead.attributes.custom_fields[1].values[0].value) });
-            await console.log("DataArrayCRM_double:", DataArrayCRM);
+            // await console.log("DataArrayCRM_double:", DataArrayCRM);
         }
     }
 
     let afterArray = await diff(DataDynamoDB, DataArrayCRM);
 
-    await console.log("afterArray: ", afterArray.length);
+    // await console.log("afterArray: ", afterArray.length);
 
     if(afterArray.length == 0){
         await console.log("is in the CRM");
