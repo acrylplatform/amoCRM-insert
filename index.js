@@ -19,17 +19,6 @@ const crm = new AmoCRM({
         hash: process.env.auth_hash
     }
 });
-
-var diff = function (arr1, arr2) {
-    
-    arr2.map(function (item2) {
-        arr1 = arr1.filter(function (item1) {
-            return item2 != item1.TxAssetID
-        });
-    });
-    return arr1;
-};
-
 const addCRM = async (data) => {
     // await console.log(data.TxAssetID, ": Add to the CRM");
     //add contact
@@ -61,6 +50,7 @@ const addCRM = async (data) => {
         ]
     }])
     .then(result => {
+        // console.log(data.TxAssetID, ": Add to Lead");
         //add lead
         crm.Lead.insert([{
             name: 'Покупка майнеров с client`а',
@@ -111,7 +101,18 @@ const addCRM = async (data) => {
     .catch(error => console.error('Error with add contact: ', error));
 }
 
-exports.handler = async (event, context, callback) => {
+var diff = function (arr1, arr2) {
+    
+    arr2.map(function (item2) {
+        arr1 = arr1.filter(function (item1) {
+            return item2 != item1.TxAssetID
+        });
+    });
+    return arr1;
+};
+
+const foo = async () => {
+
     let DataArrayDynamoDB= new Array;
     let DataArrayCRM= new Array;
 
@@ -142,7 +143,11 @@ exports.handler = async (event, context, callback) => {
     if(afterArray.length == 0){
         await console.log("is in the CRM");
     }else{
-        // await console.log("is not in the CRM");
+        await console.log("add to CRM");
         await afterArray.map(data => addCRM(data))
     }
+}
+
+exports.handler = async (event, context, callback) => {
+    await foo();
 }
