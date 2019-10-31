@@ -20,9 +20,9 @@ const crm = new AmoCRM({
     }
 });
 const addCRM = async (data) => {
-    // await console.log(data.TxAssetID, ": Add to the CRM");
+
     //add contact
-    await crm.Contact.insert([{
+    let contact = await crm.Contact.insert([{
         name: data.customName,
         responsible_user_id: "3316417",
         tags: "купить майнер",
@@ -48,57 +48,58 @@ const addCRM = async (data) => {
                 is_system: true 
             }
         ]
-    }])
-    .then(result => {
-        // console.log(data.TxAssetID, ": Add to Lead");
-        //add lead
-        crm.Lead.insert([{
-            name: 'Покупка майнеров с client`а',
-            status_id: "29857402",
-            responsible_user_id: "55014691",
-            sale: 115,
-            tags: "buy_miner",
-            contacts_id: [
-                result._response._embedded.items[0].id 
-            ],
-            custom_fields: [
-                {
-                    id: 657873,
-                    name: "Адрес доставки",
-                    values: [{ 
-                        value: data.postCode + ', ' + data.country + ', ' + data.countryState + ', ' + data.city + ', ' + data.address, 
-                    }],
-                    is_system: false 
-                },
-                {
-                    id: 664225,
-                    name: "TxAssetID",
-                    values: [{ 
-                        value: data.TxAssetID
-                    }],
-                    is_system: false
-                },
-                {
-                    id: 664227,
-                    name: "countMiners",
-                    values: [{ 
-                        value: data.countMiners
-                    }],
-                    is_system: false
-                },
-                {
-                    id: 664381,
-                    name: "referal",
-                    values: [{ 
-                        value: data.referal
-                    }],
-                    is_system: false
-                },
-            ]
-        }])
-        .catch(error => console.error('Error with add lead: ', error));;
-    })
-    .catch(error => console.error('Error with add contact: ', error));
+    }]);
+
+    await console.log("Contanct ID", contact._response._embedded.items[0].id );
+
+    await console.log(data.TxAssetID, ": Add to Lead");
+
+    await crm.Lead.insert([{
+        name: 'Покупка майнеров с client`а',
+        status_id: "29857402",
+        responsible_user_id: "55014691",
+        sale: 115,
+        tags: "buy_miner",
+        contacts_id: [
+            contact._response._embedded.items[0].id 
+        ],
+        custom_fields: [
+            {
+                id: 657873,
+                name: "Адрес доставки",
+                values: [{ 
+                    value: data.postCode + ', ' + data.country + ', ' + data.countryState + ', ' + data.city + ', ' + data.address, 
+                }],
+                is_system: false 
+            },
+            {
+                id: 664225,
+                name: "TxAssetID",
+                values: [{ 
+                    value: data.TxAssetID
+                }],
+                is_system: false
+            },
+            {
+                id: 664227,
+                name: "countMiners",
+                values: [{ 
+                    value: data.countMiners
+                }],
+                is_system: false
+            },
+            {
+                id: 664381,
+                name: "referal",
+                values: [{ 
+                    value: data.referal
+                }],
+                is_system: false
+            },
+        ]
+    }]);
+
+    await console.log("added lead")
 }
 
 var diff = function (arr1, arr2) {
@@ -111,7 +112,7 @@ var diff = function (arr1, arr2) {
     return arr1;
 };
 
-const foo = async () => {
+exports.handler = async (event, context, callback) => {
 
     let DataArrayDynamoDB= new Array;
     let DataArrayCRM= new Array;
@@ -146,8 +147,4 @@ const foo = async () => {
         await console.log("add to CRM");
         await afterArray.map(data => addCRM(data))
     }
-}
-
-exports.handler = async (event, context, callback) => {
-    await foo();
 }
