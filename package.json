@@ -19,5 +19,9 @@
   "homepage": "https://github.com/acrylplatform/amoCRM-insert#readme",
   "dependencies": {
     "amocrm-js": "^1.0.17"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.532.0",
+    "dotenv": "^8.1.0"
   }
 }
