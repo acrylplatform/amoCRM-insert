@@ -112,8 +112,7 @@ var diff = function (arr1, arr2) {
     return arr1;
 };
 
-exports.handler = async (event, context, callback) => {
-
+const foo = async () => {
     let DataArrayDynamoDB= new Array;
     let DataArrayCRM= new Array;
 
@@ -137,14 +136,17 @@ exports.handler = async (event, context, callback) => {
         }
     }
 
-    let afterArray = await diff(DataDynamoDB, DataArrayCRM);
+    let diffArray = await diff(DataDynamoDB, DataArrayCRM);
 
     // await console.log("afterArray: ", afterArray.length);
 
-    if(afterArray.length == 0){
+    if(diffArray.length == 0){
         await console.log("is in the CRM");
     }else{
         await console.log("add to CRM");
-        await afterArray.map(data => addCRM(data))
+        await diffArray.map(data => addCRM(data))
     }
+}
+exports.handler = (event, context, callback) => {
+    foo();
 }
