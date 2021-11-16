@@ -21,7 +21,7 @@
     "amocrm-js": "^1.0.17"
   },
   "devDependencies": {
-    "aws-sdk": "^2.532.0",
+    "aws-sdk": "^2.814.0",
     "dotenv": "^8.1.0"
   }
 }
